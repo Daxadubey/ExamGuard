@@ -1,0 +1,114 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  RECRUITER
+  CANDIDATE
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role
+  createdAt DateTime @default(now())
+
+  examsCreated Exam[] @relation("CreatedExams")
+  submissions  Submission[]
+  enrollments  ExamEnrollment[]
+  logs         ProctoringLog[]
+}
+
+model Exam {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  duration    Int
+  startTime   DateTime
+  endTime     DateTime
+  createdBy   String
+
+  creator     User @relation("CreatedExams", fields: [createdBy], references: [id])
+  problems    Problem[]
+  submissions Submission[]
+  enrollments ExamEnrollment[]
+  logs        ProctoringLog[]
+}
+
+model Problem {
+  id            String     @id @default(uuid())
+  examId        String
+  title         String
+  description   String
+  difficulty    Difficulty
+  sampleInput   String
+  sampleOutput  String
+  marks         Int
+
+  exam      Exam @relation(fields: [examId], references: [id])
+  testCases TestCase[]
+  submissions Submission[]
+}
+
+model TestCase {
+  id             String  @id @default(uuid())
+  problemId      String
+  input          String
+  expectedOutput String
+  isHidden       Boolean @default(true)
+
+  problem Problem @relation(fields: [problemId], references: [id])
+}
+
+model Submission {
+  id           String   @id @default(uuid())
+  candidateId  String
+  problemId    String
+  examId       String
+  code         String
+  language     String
+  score        Float
+  passedCases  Int
+  totalCases   Int
+  submittedAt  DateTime @default(now())
+
+  candidate User @relation(fields: [candidateId], references: [id])
+  problem   Problem @relation(fields: [problemId], references: [id])
+  exam      Exam @relation(fields: [examId], references: [id])
+}
+
+model ProctoringLog {
+  id          String   @id @default(uuid())
+  candidateId String
+  examId      String
+  eventType   String
+  timestamp   DateTime @default(now())
+
+  candidate User @relation(fields: [candidateId], references: [id])
+  exam      Exam @relation(fields: [examId], references: [id])
+}
+
+model ExamEnrollment {
+  id          String   @id @default(uuid())
+  candidateId String
+  examId      String
+  joinedAt    DateTime @default(now())
+  status      String
+
+  candidate User @relation(fields: [candidateId], references: [id])
+  exam      Exam @relation(fields: [examId], references: [id])
+}

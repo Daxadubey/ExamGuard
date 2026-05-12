@@ -1,0 +1,70 @@
+coding-exam-monitoring-system/
+│
+├── client/                         # Next.js 14 frontend
+│   ├── app/
+│   │   ├── login/
+│   │   │   └── page.tsx
+│   │   ├── dashboard/
+│   │   │   └── page.tsx
+│   │   ├── exam/
+│   │   │   └── [examId]/
+│   │   │       └── page.tsx
+│   │   ├── admin/
+│   │   │   └── page.tsx
+│   │   ├── recruiter/
+│   │   │   └── page.tsx
+│   │   └── layout.tsx
+│   │
+│   ├── components/
+│   │   ├── Editor/
+│   │   │   └── MonacoEditor.tsx
+│   │   ├── Timer.tsx
+│   │   ├── ProctoringGuard.tsx
+│   │   ├── ProblemPanel.tsx
+│   │   └── ResultCard.tsx
+│   │
+│   ├── lib/
+│   │   ├── api.ts
+│   │   └── socket.ts
+│   │
+│   ├── styles/
+│   │   └── globals.css
+│   │
+│   ├── tailwind.config.ts
+│   ├── tsconfig.json
+│   ├── next.config.js
+│   └── package.json
+│
+├── server/                         # Express backend
+│   ├── controllers/
+│   │   ├── authController.js
+│   │   ├── examController.js
+│   │   ├── problemController.js
+│   │   ├── submissionController.js
+│   │   └── proctorController.js
+│   │
+│   ├── middleware/
+│   │   ├── authMiddleware.js
+│   │   └── roleGuard.js
+│   │
+│   ├── prisma/
+│   │   └── schema.prisma
+│   │
+│   ├── routes/
+│   │   ├── authRoutes.js
+│   │   ├── examRoutes.js
+│   │   ├── problemRoutes.js
+│   │   ├── submissionRoutes.js
+│   │   └── proctorRoutes.js
+│   │
+│   ├── utils/
+│   │   ├── codeRunner.js
+│   │   └── scoreCalculator.js
+│   │
+│   ├── socket.js
+│   ├── server.js
+│   ├── package.json
+│   └── .env.example
+│
+├── README.md
+└── package.json (optional root workspace)
