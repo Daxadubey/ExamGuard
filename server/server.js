@@ -14,6 +14,7 @@ const authRoutes = require("./routes/authRoutes");
 const examRoutes = require("./routes/examRoutes");
 const problemRoutes = require("./routes/problemRoutes");
 const submissionRoutes = require("./routes/submissionRoutes");
+const resultRoutes = require("./routes/resultRoutes");
 const proctorRoutes = require("./routes/proctorRoutes");
 
 const app = express();
@@ -43,6 +44,7 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/exams", examRoutes);
 app.use("/api/v1/problems", problemRoutes);
 app.use("/api/v1/submissions", submissionRoutes);
+app.use("/api/v1/results", resultRoutes);
 app.use("/api/v1/proctor", proctorRoutes);
 
 // ================= SOCKET LOGIC ================= //
