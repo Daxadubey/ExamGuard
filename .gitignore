@@ -18,3 +18,12 @@ server/package.json
 server/prisma/migrations
 server/prisma/schema.prisma
 server/prisma/seed.ts
+
+node_modules
+.env
+.next
+dist
+build
+coverage
+*.log
+temp_*.py
